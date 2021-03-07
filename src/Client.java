@@ -21,6 +21,9 @@ public class Client {
             int candidate = 0;
             Scanner scanner = new Scanner(System.in);
 
+            System.out.println("Inform your name: ");
+            String name = scanner.nextLine();
+
             while (true){
                 System.out.println("Write the number of the desired option: 1 - List candidates | 2 - Vote | 3 - Result " +
                         "| 4 - Exit ");
@@ -34,16 +37,16 @@ public class Client {
                         System.out.println("Inform your candidate number: ");
                         candidate = scanner.nextInt();
 
-                        System.out.println("Inform your name: ");
-                        String name = scanner.nextLine();
-
                         vote(md5Hashing(name), String.valueOf(candidate));
+                        break;
                     case 3:
                         System.out.println("Inform the number of the candidate you want to check: ");
                         candidate = scanner.nextInt();
                         result(String.valueOf(candidate));
+                        break;
                     case 4:
                         System.exit(0);
+                        break;
                 }
             }
 
@@ -61,7 +64,7 @@ public class Client {
     }
 
     private static void vote(String elector, String candidate) throws RemoteException {
-        election.vote(elector, candidate);
+        System.out.println(election.vote(elector, candidate));
     }
 
     private static void result(String candidate) throws RemoteException {

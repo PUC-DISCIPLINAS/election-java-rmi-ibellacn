@@ -14,7 +14,7 @@ public class ElectionServant extends java.rmi.server.UnicastRemoteObject impleme
 
     public ElectionServant() throws IOException {
         super();
-        readFile("../senadores.csv");
+        readFile("./senadores.csv");
     }
 
     private static void readFile(String path) throws IOException {
@@ -34,27 +34,37 @@ public class ElectionServant extends java.rmi.server.UnicastRemoteObject impleme
     }
 
     @Override
-    public void vote(String elector, String id) throws RemoteException {
+    public String vote(String elector, String id) throws RemoteException {
         if(!voters.contains(elector)){
             for(Candidate candidate : candidates) {
                 if (candidate.getId().equals(id)) {
                     candidate.setVotesNumber(candidate.getVotesNumber() + 1);
                     voters.add(elector);
-                    return;
+                    return "Vote added!";
                 }
             }
         }
-        System.out.println("You already have voted!");
+        return "You already have voted!";
     }
 
     @Override
     public String result(String id) throws RemoteException {
-        Candidate candidate = (Candidate) candidates.stream().filter(c -> c.getId().equals(id));
-        return candidate.toString();
+        for(Candidate candidate : candidates) {
+            if (candidate.getId().equals(id)) {
+                return candidate.getId() + "| " + candidate.getName() + " | " + candidate.getPoliticalParty()
+                        + " | Votes: " + candidate.getVotesNumber();
+            }
+        }
+        return "Not found";
     }
 
     @Override
-    public List<Candidate> listCandidates() throws RemoteException {
-        return candidates;
+    public String listCandidates() throws RemoteException {
+        String response = "";
+        for(Candidate candidate : candidates) {
+            response += candidate.getId() + "| " + candidate.getName() + " | " + candidate.getPoliticalParty()
+                    + " | Votes: " + candidate.getVotesNumber() + "\n";
+        }
+        return response;
     }
 }
