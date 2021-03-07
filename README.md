@@ -12,8 +12,9 @@ Hugo Bastos de Paula
 ## Instruções de utilização
 
 1. Compilar todas as classes do projeto;
-2. Executar a classe Server (Server.java);
-3. Executar a classe Client (Client.java);
+2. Executar no terminal o código ```rmiregistry```
+3. Executar a classe Server (Server.java);
+4. Executar a classe Client (Client.java);
 
 Código para compilar
 ```
