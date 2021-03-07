@@ -1,6 +1,6 @@
-package lab_mob_dist;
+import java.io.Serializable;
 
-public class Candidate {
+public class Candidate implements Serializable {
     private String id;
     private String name;
     private String politicalParty;
